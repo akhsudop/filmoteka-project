@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HOME</title>
+    <title>LIBRARY</title>
   </head>
   <body>
     <header>
@@ -15,22 +15,19 @@
           <li><a href="./library.html">My Library</a></li>
         </ul>
       </div>
-      <form class="search-form header__form" id="search-form">
-        <div>
-          <input
-            type="text"
-            name="searchQuery"
-            autocomplete="off"
-            placeholder="Search images..."
-            class="input"
-          />
-          <button type="submit" class="header__form-btn">Search</button>
+      <div class="radio radio-lib">
+        <div class="radio-button">
+          <input type="radio" id="watched" name="lib-btn" checked />
+          <label class="btn btn-default" for="watched">watched</label>
         </div>
-      </form>
-      <div class="notFoundCaution"></div>
+        <div class="radio-button">
+          <input type="radio" id="queue" name="lib-btn" />
+          <label class="btn btn-default" for="queue">queue</label>
+        </div>
+      </div>
     </header>
-    <main>
-      <div id="movies" class="movies-home" style="display: flex; flex-wrap: wrap"></div>
+    <main class="main-container">
+      <div id="movies" class="movies-lib" style="display: flex; flex-wrap: wrap"></div>
       <div class="modal" data-modal></div>
       <div id="tui-pagination-container" class="pagi-component"></div>
     </main>
