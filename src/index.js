@@ -42,7 +42,6 @@ const renderWatchedOrQueue = e => {
         5 * (currentPage - 1),
         moviesArray.length - (moviesArray.length - 5) + 1,
       );
-      console.log(paginatedArray);
       renderMovies(paginatedArray);
     });
     renderMovies(moviesLimit);
