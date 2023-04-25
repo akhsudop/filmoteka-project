@@ -13,8 +13,8 @@ const modal = document.querySelector('.modal');
 const libBtns = document.querySelectorAll('input[name="lib-btn"]');
 const container = document.getElementById('tui-pagination-container');
 
-WATCHED_KEY_LOCALSTORAGE = 'watched';
-QUEUE_KEY_LOCALSTORAGE = 'queue';
+const WATCHED_KEY_LOCALSTORAGE = 'watched';
+const QUEUE_KEY_LOCALSTORAGE = 'queue';
 
 const renderWatchedOrQueue = e => {
   container.innerHTML = ' ';
