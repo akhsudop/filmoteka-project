@@ -15,6 +15,7 @@ const container = document.getElementById('tui-pagination-container');
 
 const WATCHED_KEY_LOCALSTORAGE = 'watched';
 const QUEUE_KEY_LOCALSTORAGE = 'queue';
+const page = 1;
 
 const renderWatchedOrQueue = e => {
   container.innerHTML = ' ';
@@ -74,7 +75,7 @@ if (moviesContainerHome) {
     let currentPage = e.page;
     getTrending(currentPage);
   });
-  getTrending((page = 1));
+  getTrending(page);
   input.addEventListener('submit', searchMovies);
 } else {
   const watchedArray = getMoviesFromLib(WATCHED_KEY_LOCALSTORAGE);
