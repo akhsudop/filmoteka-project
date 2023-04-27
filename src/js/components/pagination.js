@@ -1,28 +1,49 @@
 import Pagination from 'tui-pagination';
 
-const container = document.getElementById('pagination');
+const container = document.getElementById('tui-pagination-container');
 
-const pagination = new Pagination(container, {
-  // Total number of items
-  totalItems: 20000,
-  // Items per page
-  itemsPerPage: 20,
-  // Visible pages
-  visiblePages: 10,
-  // Current page
-  page: 1,
-  // center aligned
-  centerAlign: false,
-  // default classes
-  firstItemClassName: 'tui-first-child',
-  lastItemClassName: 'tui-last-child',
-  // enable usage statistics
-  usageStatistics: false,
-});
+let itemsPerPage = 20;
 
-pagination.on('afterMove', e => {
-  let currentPage = e.page;
-  console.log(currentPage);
-});
+const createLibPagination = (renderFunc, array) => {
+  const pagination = new Pagination(container, {
+    totalItems: array.length,
+    itemsPerPage: itemsPerPage,
+    visiblePages: 7,
+    page: 1,
+    centerAlign: true,
+    firstItemClassName: 'tui-first-child',
+    lastItemClassName: 'tui-last-child',
+    usageStatistics: false,
+  });
 
-export default pagination;
+  pagination.on('afterMove', e => {
+    let currentPage = e.page;
+    let paginatedArray = array.slice(
+      itemsPerPage * (currentPage - 1),
+      array.length - (array.length - itemsPerPage) + 1,
+    );
+    renderFunc(paginatedArray);
+    window.scrollBy(0, -window.innerHeight * 10);
+  });
+};
+
+const createHomePagination = renderFunc => {
+  const pagination = new Pagination(container, {
+    totalItems: 20000,
+    itemsPerPage: itemsPerPage,
+    visiblePages: 7,
+    page: 1,
+    centerAlign: true,
+    firstItemClassName: 'tui-first-child',
+    lastItemClassName: 'tui-last-child',
+    usageStatistics: false,
+  });
+
+  pagination.on('afterMove', e => {
+    let currentPage = e.page;
+    renderFunc(currentPage);
+
+    window.scrollBy(0, -window.innerHeight * 10);
+  });
+};
+export { createLibPagination, createHomePagination };

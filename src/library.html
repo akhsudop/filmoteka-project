@@ -7,29 +7,30 @@
     <title>LIBRARY</title>
   </head>
   <body>
-    <header>
-      <div>
+    <header class="header header-lib">
+      <div class="header__navbar">
         <a href="./index.html"><p>Filmoteka</p></a>
         <ul>
           <li><a href="./index.html">Home</a></li>
           <li><a href="./library.html">My Library</a></li>
         </ul>
       </div>
-      <div class="radio radio-lib">
-        <div class="radio-button">
+      <div class="radio header__radio">
+        <div class="header__radio--btn">
           <input type="radio" id="watched" name="lib-btn" checked />
           <label class="btn btn-default" for="watched">watched</label>
         </div>
-        <div class="radio-button">
+        <div class="header__radio--btn">
           <input type="radio" id="queue" name="lib-btn" />
           <label class="btn btn-default" for="queue">queue</label>
         </div>
       </div>
     </header>
     <main class="main-container">
-      <div id="movies" class="movies-lib" style="display: flex; flex-wrap: wrap"></div>
-      <div class="modal" data-modal></div>
+      <div id="movies" class="movies-lib"></div>
+      <div class="modal is-hidden" data-modal></div>
       <div id="tui-pagination-container" class="pagi-component"></div>
+      <button class="load-btn is-hidden">load more</button>
     </main>
     <footer>
       <div>© 2023 | All Rights Reserved | Developed by AP</div>

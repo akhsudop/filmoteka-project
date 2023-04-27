@@ -1,8 +1,7 @@
 .modal {
-  //   display: block;
-  //   position: fixed;
+  display: block;
+  position: fixed;
   z-index: 1;
-  background-color: rgba(130, 71, 71, 0.448);
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -22,10 +21,13 @@
   }
 }
 
-#movies-library {
+.movies-lib {
   height: 100vh;
 }
 
 .radio-home {
   visibility: hidden;
+}
+.is-hidden {
+  display: none;
 }

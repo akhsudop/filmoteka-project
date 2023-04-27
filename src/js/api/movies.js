@@ -1,5 +1,8 @@
 // API MOVIES FETCH
+
 import { renderMovies, renderMovieInfo, renderCaution } from '../view/movies';
+
+const container = document.getElementById('tui-pagination-container');
 
 const TMBD_API_KEY = '394f7f7b9c091369c76717b88c1e71f3';
 const TMBD_URL = 'https://api.themoviedb.org/3/';
@@ -18,7 +21,7 @@ const getTrending = async (page = 1) => {
   }
 };
 
-const getSearched = async (query, page = 1) => {
+const getSearched = async (query, page) => {
   const url = `${TMBD_URL}search/movie?api_key=${TMBD_API_KEY}&query=${query}&page=${page}`;
   try {
     const resp = await fetch(url);
@@ -29,6 +32,7 @@ const getSearched = async (query, page = 1) => {
     } else {
       renderCaution();
     }
+    return data;
   } catch (e) {
     console.error(e);
   }

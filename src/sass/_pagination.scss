@@ -1,0 +1,26 @@
+.pagi-component {
+  display: flex;
+  justify-content: center;
+
+  &:nth-child(1) {
+    margin-right: 5px;
+  }
+  & a {
+    text-decoration: none;
+    color: black;
+  }
+
+  & .tui-page-btn {
+    border: solid 0.5px #676464;
+    border-radius: 3px;
+    padding: 5px;
+  }
+
+  & .tui-page-btn.tui-is-selected {
+    background-color: orange;
+  }
+
+  & .tui-page-btn.tui-is-disabled {
+    color: #bbb1b1;
+  }
+}

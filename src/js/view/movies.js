@@ -12,10 +12,12 @@ const renderMovies = movies => {
         const vote = vote_average.toFixed(1);
         return `
       <div class="movieElement" id="${id}" data-modal="open">
-            <img src="https://image.tmdb.org/t/p/original/${poster_path}" alt="movie poster" loading="lazy" width="395">
+            <img src="https://image.tmdb.org/t/p/original/${poster_path}" alt="movie poster" loading="lazy">
+            
             <p>${title}</p>
             <p>${date}</p>
             <p>${vote}</p>
+            
         </div>`;
       })
       .join('');
@@ -24,8 +26,9 @@ const renderMovies = movies => {
 };
 
 const renderMovieInfo = (data, genresList) => {
-  const markup = `<div class="modal-content">
-          <span class="close">&times;</span>
+  const markup = `
+  <div class="modal-content">
+          <span class="close" data-modal="close">&times;</span>
           <div>
           <img src="https://image.tmdb.org/t/p/original/${
             data.poster_path

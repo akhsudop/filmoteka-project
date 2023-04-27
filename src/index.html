@@ -7,32 +7,40 @@
     <title>HOME</title>
   </head>
   <body>
-    <header>
-      <div>
-        <a href="./index.html"><p>Filmoteka</p></a>
+    <header class="header header-home">
+      <div class="header__navbar">
+        <a class="header__logo" href="./index.html">
+          <svg class="icon-film header__logo--icon" width="24" height="24">
+            <use href="./assets/svg/sprite-svg.svg#icon-film"></use>
+          </svg>
+          <p class="header__logo--text">Filmoteka</p></a
+        >
         <ul>
           <li><a href="./index.html">Home</a></li>
           <li><a href="./library.html">My Library</a></li>
         </ul>
       </div>
-      <form class="search-form header__form" id="search-form">
-        <div>
-          <input
-            type="text"
-            name="searchQuery"
-            autocomplete="off"
-            placeholder="Search images..."
-            class="input"
-          />
-          <button type="submit" class="header__form-btn">Search</button>
-        </div>
+      <form class="header__form search-form" id="search-form">
+        <input
+          type="text"
+          name="searchQuery"
+          autocomplete="off"
+          placeholder="Movie search"
+          class="input"
+        />
+        <button type="submit" class="header__form--btn">
+          <svg class="icon-film header__logo--icon" width="12" height="12">
+            <use href="./assets/svg/sprite-svg.svg#icon-search"></use>
+          </svg>
+        </button>
       </form>
-      <div class="notFoundCaution"></div>
+      <div class="header__caution notFoundCaution"></div>
     </header>
-    <main>
-      <div id="movies" class="movies-home" style="display: flex; flex-wrap: wrap"></div>
-      <div class="modal" data-modal></div>
+    <main class="main-container">
+      <div id="movies" class="movies-home"></div>
+      <div class="modal is-hidden" data-modal></div>
       <div id="tui-pagination-container" class="pagi-component"></div>
+      <button class="load-btn is-hidden">load more</button>
     </main>
     <footer>
       <div>© 2023 | All Rights Reserved | Developed by AP</div>

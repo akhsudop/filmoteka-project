@@ -1,0 +1,135 @@
+.header.header-home {
+  background-image: url(../assets/home-bg@x1.jpg);
+  background-size: 100% 320px;
+}
+
+.header.header-lib {
+  background-image: url(../assets/lib-bg@x1.jpg);
+  background-size: cover;
+}
+
+.header {
+  max-width: 1280px;
+  margin: auto;
+  //   background-image: url(../assets/home-bg@x1.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 200px;
+  padding: 40px 20px;
+  align-items: center;
+  & a {
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+
+  &__navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    text-decoration: none;
+    & ul {
+      list-style: none;
+      display: flex;
+      margin-block: 0;
+      padding: 0;
+    }
+    & ul li:last-child {
+      margin-left: 40px;
+    }
+  }
+
+  &__logo {
+    display: flex;
+    align-content: center;
+    &--text {
+      margin-block: 0;
+      margin-left: 10px;
+      display: none;
+    }
+  }
+
+  &__form {
+    margin-top: 120px;
+    position: relative;
+    & input {
+      background-color: transparent;
+      border-bottom: 0.5px solid #ffffff;
+      border-left: none;
+      border-right: none;
+      border-top: none;
+      font-size: 14px;
+      color: #ffffff;
+      width: 97%;
+      padding-bottom: 4px;
+      &::placeholder {
+        color: #ffffff;
+        opacity: 0.7;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+
+    &--btn {
+      cursor: pointer;
+      background-color: transparent;
+      border: none;
+      position: absolute;
+      right: 10px;
+    }
+  }
+
+  &__caution {
+    height: 25%;
+    margin-top: 15px;
+    color: #ff001b;
+  }
+
+  // Library header
+  &__radio {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    &--btn {
+      width: 100px;
+      height: 40px;
+      margin: 0 5px 0 0;
+      position: relative;
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    & label,
+    & input {
+      cursor: pointer;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    & input[type='radio'] {
+      opacity: 0;
+      z-index: 100;
+    }
+
+    & label {
+      z-index: 90;
+      line-height: 2.4em;
+      color: #ffffff;
+      border: 1px solid #ffffff6e;
+      border-radius: 4px;
+    }
+
+    & input[type='radio']:checked + label {
+      background: orange;
+      border-radius: 4px;
+      border: none;
+    }
+  }
+}
