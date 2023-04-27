@@ -1,5 +1,8 @@
 import { getMovieForLib } from '../api/movies';
 
+//SAVE TO WATCHED OR QUEUE.
+//Allows to add movie to one storage key and remove from another (if already exist) simultaneously.
+
 const saveToWatchedOrQueue = (key1, key2, id) => {
   let value1 = [];
   let value2 = [];
