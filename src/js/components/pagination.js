@@ -23,7 +23,11 @@ const createLibPagination = (renderFunc, array) => {
       array.length - (array.length - itemsPerPage) + 1,
     );
     renderFunc(paginatedArray);
-    window.scrollBy(0, -window.innerHeight * 10);
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   });
 };
 
@@ -43,7 +47,10 @@ const createHomePagination = renderFunc => {
     let currentPage = e.page;
     renderFunc(currentPage);
 
-    window.scrollBy(0, -window.innerHeight * 10);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   });
 };
 export { createLibPagination, createHomePagination };
