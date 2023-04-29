@@ -1,8 +1,13 @@
 import { getMovieForLib } from '../api/movies';
+import Notiflix from 'notiflix';
 
-//SAVE TO WATCHED OR QUEUE.
-//Allows to add movie to one storage key and remove from another (if already exist) simultaneously.
-
+/** SAVE TO WATCHED OR QUEUE. 
+ * 
+ * Allows to add movie to one storage key and remove from another (if already exist) simultaneously.
+Each of two local storage keys (watched or queue|key1 or key2) has an arrow of movies data (value1| value2).
+Before saving new movie data to one of the keys check if that movie already exists in another one.
+If it does exist remove it. One movie can exist only in one of two keys at the same time.
+*/
 const saveToWatchedOrQueue = (key1, key2, id) => {
   let value1 = [];
   let value2 = [];
@@ -43,6 +48,15 @@ const saveToWatchedOrQueue = (key1, key2, id) => {
             localStorage.setItem(key1, JSON.stringify(value1));
           } else {
             // TO DO: notiflix
+            Notiflix.Notify.init({
+              info: {
+                background: 'orange',
+                notiflixIconColor: 'white',
+              },
+            });
+            Notiflix.Notify.info(`The movie already exists in the "${key1}" library`, {
+              position: 'center-center',
+            });
             console.log('OOOOOOPPPS');
           }
         } else {
@@ -51,6 +65,15 @@ const saveToWatchedOrQueue = (key1, key2, id) => {
             localStorage.setItem(key1, JSON.stringify(value1));
           } else {
             // TO DO: notiflix
+            Notiflix.Notify.init({
+              info: {
+                background: 'orange',
+                notiflixIconColor: 'white',
+              },
+            });
+            Notiflix.Notify.info(`The movie already exists in the "${key1}" library`, {
+              position: 'center-center',
+            });
             console.log('OOOOOOPPPS');
           }
         }

@@ -1,27 +1,43 @@
+import { getGenresList } from '../api/movies';
+
 const moviesContainer = document.querySelector('#movies');
 const modal = document.querySelector('.modal');
 const cautionEl = document.querySelector('.notFoundCaution');
 
-const renderMovies = movies => {
+const createMoviesTemplate = (id, poster_path, title, release_date, vote_average, genreNames) => {
+  const twoGenres = genreNames ? genreNames.slice(0, 2).join(', ') : [];
+  const date = release_date ? new Date(release_date).getUTCFullYear() : 'Unknown';
+  const vote = vote_average.toFixed(1);
+  return `
+      <div class="movieElement" id="${id}" data-modal="open">
+            <img src="https://image.tmdb.org/t/p/original/${poster_path}" alt="movie poster" loading="lazy">  
+            <h4>${title}</h4><span>| ${twoGenres}</span>
+            <p>${date}</p>
+            <p>${vote}</p>     
+        </div>`;
+};
+
+const renderMoviesHome = async movies => {
+  const markup = await Promise.all(
+    movies.map(async ({ id, poster_path, title, release_date, vote_average, genre_ids }) => {
+      const date = release_date ? new Date(release_date).getUTCFullYear() : 'Unknown';
+      const vote = vote_average.toFixed(1);
+      const genreNames = await getGenresList(genre_ids);
+      return createMoviesTemplate(id, poster_path, title, release_date, vote_average, genreNames);
+    }),
+  );
+  moviesContainer.innerHTML = markup.join('');
+};
+
+const renderMoviesLib = movies => {
   if (!movies) {
     moviesContainer.innerHTML = '';
   } else {
-    const markup = movies
-      .map(({ id, poster_path, title, release_date, vote_average }) => {
-        const date = new Date(release_date).getUTCFullYear();
-        const vote = vote_average.toFixed(1);
-        return `
-      <div class="movieElement" id="${id}" data-modal="open">
-            <img src="https://image.tmdb.org/t/p/original/${poster_path}" alt="movie poster" loading="lazy">
-            
-            <p>${title}</p>
-            <p>${date}</p>
-            <p>${vote}</p>
-            
-        </div>`;
-      })
-      .join('');
-    moviesContainer.innerHTML = markup;
+    const markup = movies.map(({ id, poster_path, title, release_date, vote_average, genres }) => {
+      const genreNames = genres.map(genre => genre.name);
+      return createMoviesTemplate(id, poster_path, title, release_date, vote_average, genreNames);
+    });
+    moviesContainer.innerHTML = markup.join('');
   }
 };
 
@@ -71,4 +87,4 @@ const renderCaution = () => {
   }, 5000);
 };
 
-export { renderMovies, renderMovieInfo, renderCaution };
+export { renderMoviesHome, renderMoviesLib, renderMovieInfo, renderCaution };

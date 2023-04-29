@@ -1,7 +1,7 @@
 import { getTrending, getSearched, getMovieInfo } from './js/api/movies';
 import saveToWatchedOrQueue from './js/local-storage/movies_save';
 import getMoviesFromLib from './js/local-storage/movies_load';
-import { renderMovies } from './js/view/movies';
+import { renderMoviesLib } from './js/view/movies';
 import { createLibPagination, createHomePagination } from './js/components/pagination';
 
 import './sass/index.scss';
@@ -21,16 +21,16 @@ let page = 1;
 const renderWatchedOrQueue = e => {
   container.innerHTML = ' ';
   const key = e.target.getAttribute('id');
-  const moviesArray = getMoviesFromLib(key);
+  const moviesArray = getMoviesFromLib(key) ? getMoviesFromLib(key) : [];
   if (moviesArray.length > 20 && screen.width > 767) {
-    let moviesLimit = moviesArray.slice(0, 5);
-    createLibPagination(renderMovies, moviesArray);
-    renderMovies(moviesLimit);
+    let moviesLimit = moviesArray.slice(0, 20);
+    createLibPagination(renderMoviesLib, moviesArray);
+    renderMoviesLib(moviesLimit);
   } else if (moviesArray.length > 20 && screen.width <= 767) {
     loadBtn.classList.remove('is-hidden');
     // loadBtn.addEventListener('click', loadMoreMovies);
   } else {
-    renderMovies(moviesArray);
+    renderMoviesLib(moviesArray);
   }
 };
 
@@ -54,16 +54,18 @@ if (moviesContainer.classList.contains('movies-home')) {
     // loadBtn.addEventListener('click', loadMoreMovies);
   }
 } else {
-  const watchedArray = getMoviesFromLib(WATCHED_KEY_LOCALSTORAGE);
+  const watchedArray = getMoviesFromLib(WATCHED_KEY_LOCALSTORAGE)
+    ? getMoviesFromLib(WATCHED_KEY_LOCALSTORAGE)
+    : [];
   if (watchedArray.length > 20 && screen.width > 767) {
-    let watchedLimit = watchedArray.slice(0, 5);
-    createLibPagination(renderMovies, watchedArray);
-    renderMovies(watchedLimit);
+    let watchedLimit = watchedArray.slice(0, 20);
+    createLibPagination(renderMoviesLib, watchedArray);
+    renderMoviesLib(watchedLimit);
   } else if (watchedArray.length > 20 && screen.width <= 767) {
     loadBtn.classList.remove('is-hidden');
     // loadBtn.addEventListener('click', loadMoreMovies);
   } else {
-    renderMovies(watchedArray);
+    renderMoviesLib(watchedArray);
   }
   libBtns.forEach(libBtn => libBtn.addEventListener('change', renderWatchedOrQueue));
 }
@@ -84,7 +86,6 @@ const addMovieToLib = e => {
 };
 
 const closeModalOnClick = e => {
-  console.log(e.target);
   if (e.target.classList.contains('close') || e.target.classList.contains('modal')) {
     modal.classList.toggle('is-hidden');
   } else {
@@ -102,7 +103,6 @@ const openModal = e => {
   if (!e.target.parentNode.classList.contains('movieElement')) {
     return;
   } else {
-    console.log(e.target);
     const movieId = e.target.parentNode.getAttribute('id');
     getMovieInfo(movieId);
     modal.classList.toggle('is-hidden');

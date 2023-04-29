@@ -1,6 +1,6 @@
 // API MOVIES FETCH
 
-import { renderMovies, renderMovieInfo, renderCaution } from '../view/movies';
+import { renderMoviesHome, renderMovieInfo, renderCaution, renderMoviesLib } from '../view/movies';
 
 const container = document.getElementById('tui-pagination-container');
 
@@ -15,7 +15,7 @@ const getTrending = async (page = 1) => {
     const resp = await fetch(url);
     const data = await resp.json();
     const filteredResults = data.results.filter(res => res.poster_path !== null);
-    renderMovies(filteredResults);
+    renderMoviesHome(filteredResults);
   } catch (e) {
     console.error(e);
   }
@@ -28,7 +28,7 @@ const getSearched = async (query, page) => {
     const data = await resp.json();
     if (data.total_results > 0) {
       const filteredResults = data.results.filter(res => res.poster_path !== null);
-      renderMovies(filteredResults);
+      renderMoviesHome(filteredResults);
     } else {
       renderCaution();
     }
@@ -62,4 +62,19 @@ const getMovieForLib = async id => {
   }
 };
 
-export { getTrending, getSearched, getMovieInfo, getMovieForLib };
+const getGenresList = async idsArray => {
+  const url = `${TMBD_URL}genre/movie/list?api_key=${TMBD_API_KEY}&language=en-US`;
+  try {
+    const resp = await fetch(url);
+    const data = await resp.json();
+    const genresData = await data.genres;
+    if (idsArray) {
+      const genreNames = genresData.filter(d => idsArray.includes(d.id)).map(d => d.name);
+      return genreNames;
+    }
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export { getTrending, getSearched, getMovieInfo, getMovieForLib, getGenresList };
