@@ -1,6 +1,17 @@
 import { getMovieForLib } from '../api/movies';
 import Notiflix from 'notiflix';
 
+// GET MOVIES FROM LOCALSTORAGE
+
+const getMoviesFromLib = key => {
+  try {
+    const serializedState = localStorage.getItem(key);
+    return serializedState === null ? undefined : JSON.parse(serializedState);
+  } catch (error) {
+    console.error('Get state error: ', error.message);
+  }
+};
+
 /** SAVE TO WATCHED OR QUEUE. 
  * 
  * Allows to add movie to one storage key and remove from another (if already exist) simultaneously.
@@ -19,7 +30,6 @@ const saveToWatchedOrQueue = (key1, key2, id) => {
       } else if (!localStorage.getItem(key1) && localStorage.getItem(key2)) {
         value2 = JSON.parse(localStorage.getItem(key2));
         if (value2.findIndex(val => val.id === data.id) < 0) {
-          console.log(value2.findIndex(val => val.id === data.id));
           value1.unshift(data);
           localStorage.setItem(key1, JSON.stringify(value1));
         } else {
@@ -47,7 +57,6 @@ const saveToWatchedOrQueue = (key1, key2, id) => {
             value1.unshift(data);
             localStorage.setItem(key1, JSON.stringify(value1));
           } else {
-            // TO DO: notiflix
             Notiflix.Notify.init({
               info: {
                 background: 'orange',
@@ -64,7 +73,6 @@ const saveToWatchedOrQueue = (key1, key2, id) => {
             value1.unshift(data);
             localStorage.setItem(key1, JSON.stringify(value1));
           } else {
-            // TO DO: notiflix
             Notiflix.Notify.init({
               info: {
                 background: 'orange',
@@ -84,4 +92,4 @@ const saveToWatchedOrQueue = (key1, key2, id) => {
   });
 };
 
-export default saveToWatchedOrQueue;
+export { saveToWatchedOrQueue, getMoviesFromLib };

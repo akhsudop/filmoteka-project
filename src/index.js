@@ -1,6 +1,5 @@
 import { getTrending, getSearched, getMovieInfo } from './js/api/movies';
-import saveToWatchedOrQueue from './js/local-storage/movies_save';
-import getMoviesFromLib from './js/local-storage/movies_load';
+import { saveToWatchedOrQueue, getMoviesFromLib } from './js/utils/storage';
 import { renderMoviesLib } from './js/view/movies';
 import { createLibPagination, createHomePagination } from './js/components/pagination';
 
