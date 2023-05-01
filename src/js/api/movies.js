@@ -1,6 +1,6 @@
 // API MOVIES FETCH
 
-import { renderMoviesHome, renderMovieInfo, renderCaution, renderMoviesLib } from '../view/movies';
+import { renderMoviesHome, renderMovieInfo, renderCaution, renderVideoModul } from '../view/movies';
 
 const container = document.getElementById('tui-pagination-container');
 
@@ -69,7 +69,9 @@ const getGenresList = async idsArray => {
     const data = await resp.json();
     const genresData = await data.genres;
     if (idsArray) {
-      const genreNames = genresData.filter(d => idsArray.includes(d.id)).map(d => d.name);
+      const genreNames = genresData
+        .filter(genre => idsArray.includes(genre.id))
+        .map(genre => genre.name);
       return genreNames;
     }
   } catch (e) {
@@ -77,4 +79,20 @@ const getGenresList = async idsArray => {
   }
 };
 
-export { getTrending, getSearched, getMovieInfo, getMovieForLib, getGenresList };
+const getMovieTrailer = async id => {
+  const url = `${TMBD_URL}movie/${id}/videos?api_key=${TMBD_API_KEY}&language=en-US`;
+  try {
+    const resp = await fetch(url);
+    const data = await resp.json();
+    const videoResult = data.results.find(res => res.official === true);
+    if (videoResult.site === 'YouTube') {
+      renderVideoModul(videoResult);
+    } else {
+      return;
+    }
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export { getTrending, getSearched, getMovieInfo, getMovieForLib, getGenresList, getMovieTrailer };

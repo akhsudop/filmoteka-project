@@ -1,4 +1,4 @@
-import { getTrending, getSearched, getMovieInfo } from './js/api/movies';
+import { getTrending, getSearched, getMovieInfo, getMovieTrailer } from './js/api/movies';
 import { saveToWatchedOrQueue, getMoviesFromLib } from './js/utils/storage';
 import { renderMoviesLib } from './js/view/movies';
 import { createLibPagination, createHomePagination } from './js/components/pagination';
@@ -8,6 +8,7 @@ import './sass/index.scss';
 const input = document.querySelector('#search-form');
 const moviesContainer = document.querySelector('#movies');
 const modal = document.querySelector('.modal');
+const modalVideo = document.querySelector('.modal-video');
 const libBtns = document.querySelectorAll('input[name="lib-btn"]');
 const container = document.getElementById('tui-pagination-container');
 const loadBtn = document.querySelector('.load-btn');
@@ -85,8 +86,10 @@ const addMovieToLib = e => {
 };
 
 const closeModalOnClick = e => {
-  if (e.target.classList.contains('close') || e.target.classList.contains('modal')) {
+  if (e.target.classList.contains('modal__close') || e.target.classList.contains('modal')) {
     modal.classList.toggle('is-hidden');
+    modal.removeEventListener('click', addMovieToLib);
+    modal.removeEventListener('click', closeModalOnClick);
   } else {
     return;
   }
@@ -95,6 +98,26 @@ const closeModalOnClick = e => {
 const closeModalByKey = event => {
   if (event.code === 'Escape' && !modal.classList.contains('is-hidden')) {
     modal.classList.toggle('is-hidden');
+    modal.removeEventListener('click', addMovieToLib);
+    modal.removeEventListener('click', closeModalOnClick);
+  } else {
+    return;
+  }
+};
+
+const closeTrailer = e => {
+  if (e.target.nodeName === 'DIV' || e.target.nodeName === 'SPAN') {
+    modalVideo.classList.toggle('is-hidden');
+    modalVideo.removeEventListener('click', closeTrailer);
+  }
+};
+
+const openTrailer = e => {
+  if (e.target.nodeName === 'IMG') {
+    const movieId = e.target.getAttribute('id');
+    modalVideo.classList.toggle('is-hidden');
+    getMovieTrailer(movieId);
+    modalVideo.addEventListener('click', closeTrailer);
   }
 };
 
@@ -107,6 +130,7 @@ const openModal = e => {
     modal.classList.toggle('is-hidden');
     modal.addEventListener('click', addMovieToLib);
     modal.addEventListener('click', closeModalOnClick);
+    modal.addEventListener('click', openTrailer);
     document.addEventListener('keydown', closeModalByKey);
   }
 };

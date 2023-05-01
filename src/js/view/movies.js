@@ -2,6 +2,7 @@ import { getGenresList } from '../api/movies';
 
 const moviesContainer = document.querySelector('#movies');
 const modal = document.querySelector('.modal');
+const modalVideo = document.querySelector('.modal-video');
 const cautionEl = document.querySelector('.notFoundCaution');
 
 const createMoviesTemplate = (id, poster_path, title, release_date, vote_average, genreNames) => {
@@ -11,9 +12,14 @@ const createMoviesTemplate = (id, poster_path, title, release_date, vote_average
   return `
       <div class="movieElement" id="${id}" data-modal="open">
             <img src="https://image.tmdb.org/t/p/original/${poster_path}" alt="movie poster" loading="lazy">  
-            <h4>${title}</h4><span>| ${twoGenres}</span>
-            <p>${date}</p>
-            <p>${vote}</p>     
+            <div>
+            <h4>${title}</h4>
+            <div class="movieElement__info">
+            <p>${twoGenres}</p>
+            <p>| ${date}</p>
+            <p>${vote}</p> 
+            </div>
+            </div>    
         </div>`;
 };
 
@@ -43,38 +49,38 @@ const renderMoviesLib = movies => {
 
 const renderMovieInfo = (data, genresList) => {
   const markup = `
-  <div class="modal-content">
-          <span class="close" data-modal="close">&times;</span>
-          <div>
+  <div class="modal__content">
+          <span class="modal__close" data-modal="close">&times;</span>
+          <div class="modal__info">
           <img src="https://image.tmdb.org/t/p/original/${
             data.poster_path
-          }" alt="movie poster" loading="lazy">
-          <div class="info">
-            <p>${data.title}</p>
-            <div>
-            <p>Vote / Votes</p>
-            <p>${data.vote_average} / ${data.vote_count}</p>
+          }" alt="movie poster" id="${data.id}" loading="lazy">
+          <div>
+            <h5 class="modal__info--title">${data.title}</h5>
+            <div class="modal__details">
+                <div class="modal__details--section">
+                    <p>Vote / Votes</p>
+                    <p>Popularity</p>
+                    <p>Original Title</p>
+                    <p>Genre</p>
+                </div>
+                <div class="modal__details--section results">
+                    <p><span>${data.vote_average}</span> / <span>${data.vote_count}</span></p>
+                    <p>${data.popularity}</p>
+                    <p>${data.original_title}</p>
+                    <p>${genresList.join(', ')}</p>
+                </div>
             </div>
-            <div>
-            <p>Popularity</p>
-            <p>${data.popularity}</p>
-            </div>
-            <div>
-            <p>Original Title</p>
-            <p>${data.original_title}</p>
-            </div>
-            <div>
-            <p>Genre</p>
-            <p>${genresList.join(', ')}</p>
-            </div>
+        <div class="modal__about">
             <p>About</p>
             <p>${data.overview}</p>
-          </div>
-          </div>
-          <div>
+        </div>
+        <div class="modal__buttons">
             <button id="${data.id}" class='addToWatchedBtn'>add to Watched</button>
             <button id="${data.id}" class='addToQueueBtn'>add to queue</button>
-          </div>
+        </div>
+        </div>
+        </div>
         </div>`;
 
   modal.innerHTML = markup;
@@ -87,4 +93,14 @@ const renderCaution = () => {
   }, 5000);
 };
 
-export { renderMoviesHome, renderMoviesLib, renderMovieInfo, renderCaution };
+const renderVideoModul = ({ key }) => {
+  console.log(key);
+  const markup = `<span>&times; close</span>
+  <iframe width="360" height="250"
+    src="https://www.youtube.com/embed/${key}?controls=0" frameborder="0"
+    allowfullscreen
+    allow="autoplay; encrypted-media">
+    </iframe>`;
+  modalVideo.innerHTML = markup;
+};
+export { renderMoviesHome, renderMoviesLib, renderMovieInfo, renderCaution, renderVideoModul };

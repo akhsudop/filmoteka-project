@@ -1,6 +1,8 @@
-@import './_theme-colors';
+@import './normalizator';
+@import './theme-colors';
 
-@import './_modal';
-@import './_header';
-@import './_pagination';
-@import './_movies';
+@import './modal';
+@import './header';
+@import './pagination';
+@import './movies';
+@import './footer';

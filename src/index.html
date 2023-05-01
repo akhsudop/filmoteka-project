@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
     <title>HOME</title>
   </head>
   <body>
@@ -16,33 +23,38 @@
           <p class="header__logo--text">Filmoteka</p></a
         >
         <ul>
-          <li><a href="./index.html">Home</a></li>
+          <li><a class="navi-ancor-home" href="./index.html">Home</a></li>
           <li><a href="./library.html">My Library</a></li>
         </ul>
       </div>
-      <form class="header__form search-form" id="search-form">
-        <input
-          type="text"
-          name="searchQuery"
-          autocomplete="off"
-          placeholder="Movie search"
-          class="input"
-        />
-        <button type="submit" class="header__form--btn">
-          <svg class="icon-film header__logo--icon" width="12" height="12">
-            <use href="./assets/svg/sprite-svg.svg#icon-search"></use>
-          </svg>
-        </button>
-      </form>
-      <div class="header__caution notFoundCaution"></div>
+      <div class="header__search">
+        <form class="header__form search-form" id="search-form">
+          <input
+            type="text"
+            name="searchQuery"
+            autocomplete="off"
+            placeholder="Movie search"
+            class="input"
+          />
+          <button type="submit" class="header__form--btn">
+            <svg class="icon-film header__logo--icon" width="12" height="12">
+              <use href="./assets/svg/sprite-svg.svg#icon-search"></use>
+            </svg>
+          </button>
+        </form>
+        <div class="header__caution notFoundCaution"></div>
+      </div>
     </header>
     <main class="main-container">
       <div id="movies" class="movies-home"></div>
+      <div class="modal-video is-hidden"></div>
       <div class="modal is-hidden" data-modal></div>
       <div id="tui-pagination-container" class="pagi-component"></div>
-      <button class="load-btn is-hidden">load more</button>
+      <div style="display: flex; justify-content: center">
+        <button class="load-btn is-hidden">load more</button>
+      </div>
     </main>
-    <footer>
+    <footer class="footer-container">
       <div>© 2023 | All Rights Reserved | Developed by AP</div>
     </footer>
     <script src="index.js" type="module"></script>
