@@ -32,7 +32,11 @@ const renderMoviesHome = async movies => {
       return createMoviesTemplate(id, poster_path, title, release_date, vote_average, genreNames);
     }),
   );
-  moviesContainer.innerHTML = markup.join('');
+  if (screen.width <= 767) {
+    moviesContainer.innerHTML += markup.join('');
+  } else {
+    moviesContainer.innerHTML = markup.join('');
+  }
 };
 
 const renderMoviesLib = movies => {
@@ -43,7 +47,12 @@ const renderMoviesLib = movies => {
       const genreNames = genres.map(genre => genre.name);
       return createMoviesTemplate(id, poster_path, title, release_date, vote_average, genreNames);
     });
-    moviesContainer.innerHTML = markup.join('');
+    // moviesContainer.innerHTML = markup.join('');
+    if (screen.width <= 767) {
+      moviesContainer.innerHTML += markup.join('');
+    } else {
+      moviesContainer.innerHTML = markup.join('');
+    }
   }
 };
 
@@ -55,6 +64,7 @@ const renderMovieInfo = (data, genresList) => {
           <img src="https://image.tmdb.org/t/p/original/${
             data.poster_path
           }" alt="movie poster" id="${data.id}" loading="lazy">
+          <a href="#" id="${data.id}"></a>
           <div>
             <h5 class="modal__info--title">${data.title}</h5>
             <div class="modal__details">

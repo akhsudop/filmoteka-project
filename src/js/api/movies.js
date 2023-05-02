@@ -84,8 +84,8 @@ const getMovieTrailer = async id => {
   try {
     const resp = await fetch(url);
     const data = await resp.json();
-    const videoResult = data.results.find(res => res.official === true);
-    if (videoResult.site === 'YouTube') {
+    const videoResult = data.results.find(res => res.type === 'Trailer');
+    if (videoResult.official === true) {
       renderVideoModul(videoResult);
     } else {
       return;
