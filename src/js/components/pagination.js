@@ -20,7 +20,8 @@ const createLibPagination = (renderFunc, array) => {
     let currentPage = e.page;
     let paginatedArray = array.slice(
       itemsPerPage * (currentPage - 1),
-      array.length - (array.length - itemsPerPage) + 1,
+      //   array.length - (array.length - itemsPerPage) + 1,
+      itemsPerPage * (currentPage - 1) + itemsPerPage,
     );
     renderFunc(paginatedArray);
 

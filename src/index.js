@@ -37,7 +37,7 @@ const renderWatchedOrQueue = e => {
       let itemsPerPage = 20;
       const paginatedArray = moviesArray.slice(
         page * itemsPerPage,
-        total - (total - page * itemsPerPage - page * itemsPerPage) + 1,
+        itemsPerPage * page + itemsPerPage,
       );
       console.log(paginatedArray);
       renderMoviesLib(paginatedArray);
@@ -87,11 +87,11 @@ if (moviesContainer.classList.contains('movies-home')) {
     // Func onclick for LoadMore button for smartphones (screen.width < 767px)
 
     const loadMoreLibPg = () => {
-      let total = watchedArray.length;
+      //   let total = watchedArray.length;
       let itemsPerPage = 20;
       const paginatedArray = watchedArray.slice(
         page * itemsPerPage,
-        total - (total - page * itemsPerPage - page * itemsPerPage) + 1,
+        itemsPerPage * page + itemsPerPage,
       );
       renderMoviesLib(paginatedArray);
       if (paginatedArray[paginatedArray.length - 1] === watchedArray[watchedArray.length - 1]) {
