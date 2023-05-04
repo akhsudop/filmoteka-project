@@ -145,6 +145,7 @@ const closeModalByKey = event => {
 
 const closeTrailer = e => {
   if (e.target.nodeName === 'DIV' || e.target.nodeName === 'SPAN') {
+    modalVideo.innerHTML = '';
     modalVideo.classList.toggle('is-hidden');
     modalVideo.removeEventListener('click', closeTrailer);
   }
