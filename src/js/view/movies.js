@@ -26,8 +26,8 @@ const createMoviesTemplate = (id, poster_path, title, release_date, vote_average
 const renderMoviesHome = async movies => {
   const markup = await Promise.all(
     movies.map(async ({ id, poster_path, title, release_date, vote_average, genre_ids }) => {
-      const date = release_date ? new Date(release_date).getUTCFullYear() : 'Unknown';
-      const vote = vote_average.toFixed(1);
+      //   const date = release_date ? new Date(release_date).getUTCFullYear() : 'Unknown';
+      //   const vote = vote_average.toFixed(1);
       const genreNames = await getGenresList(genre_ids);
       return createMoviesTemplate(id, poster_path, title, release_date, vote_average, genreNames);
     }),
