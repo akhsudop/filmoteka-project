@@ -18,7 +18,7 @@ This project is built using the following technologies:
 
 - JavaScript: The core programming language used for the project.
 - SCSS: A CSS preprocessor used to style the application.
-- Fetch API: Used for making HTTP requests to fetch film data from an external API.
+- Fetch API: Used for making HTTP requests to fetch film data from an TMBD API.
 - Local Storage: Used to store and retrieve data about watched and queued films.
 - YouTube Embed: The film trailers are embedded in the application using YouTube video links.
 
